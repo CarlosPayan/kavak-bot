@@ -215,7 +215,7 @@ docker build -t kavak-bot:latest .
 ### Ejecutar el contenedor
 
 ```bash
-docker run -d   -p 8080:8080   -v "$(pwd)/configs/config.yaml:/root/configs/config.yaml:ro"   --name kavak-bot   kavak-bot:latest
+docker run -d   -p 8080:8080 --name kavak-bot   kavak-bot:latest
 ```
 
 ---
@@ -226,7 +226,9 @@ Se exponen métricas en `/metrics` usando **Prometheus**:
 
 - `catalog_search_latency_ms` (histograma)  
 - `openai_chat_latency_ms` (histograma)  
-- `total_request_latency_ms` (histograma)  
+- `qa_request_latency_ms` (histograma)
+- `whatsapp_request_latency_ms` (histograma)  
+
 
 Para habilitar, visita:
 
