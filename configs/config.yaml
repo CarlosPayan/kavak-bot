@@ -1,0 +1,8 @@
+server:
+  address: ":8080"
+
+openai:
+  api_key: ""
+
+catalog:
+  path: "data/catalog.csv"
