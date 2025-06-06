@@ -14,9 +14,8 @@ Este repositorio contiene un bot en Go que utiliza LLMs (OpenAI) para simular el
    - [Integración con WhatsApp (Twilio)](#integración-con-whatsapp-twilio)  
 6. [Contenerización con Docker](#contenerización-con-docker)  
 7. [Métricas y Monitoreo](#métricas-y-monitoreo)  
-8. [Pruebas y Validación](#pruebas-y-validación)  
-9. [Despliegue en Producción](#despliegue-en-producción)  
-10. [Enlaces Útiles](#enlaces-útiles)  
+7. [Roadmap](#roadmap)  
+9. [Enlaces Útiles](#enlaces-útiles)  
 
 ---
 
@@ -239,6 +238,37 @@ curl http://localhost:8080/metrics
 Configura tu Prometheus para que haga scrape a `http://<tu_servidor>:8080/metrics`.
 
 ---
+
+## Roadmap
+¿Cómo pondrías esto en producción?
+
+    Contenerización con Docker, pipeline CI/CD para construir imágenes y testear automáticamente.
+
+    Despliegue en un contenedor gestionado (AWS ECS), configurado con variables de entorno seguras.
+
+    Persistencia de sesiones en Redis (en lugar de memoria).
+
+    Logs y métricas exponen /metrics para Prometheus, con dashboards en Grafana y alertas.
+
+    Seguridad: validación de firma Twilio, rate limiting, HTTPS obligatorio, secret management.
+
+¿Cómo evaluarías el desempeño del agente?
+
+    Métricas cuantitativas: latencia de RAG, latencia de OpenAI, latencia total, tasa de errores, consumo de tokens.
+
+    Métricas cualitativas: encuestas en chat (👍/👎), revisiones manuales de conversaciones, tracking de “alucinaciones”.
+
+    Dashboards que muestren p50/p90/p99 de latencia, errores por endpoint, ratio de satisfacción.
+
+¿Cómo probarías que una nueva versión no tiene retroceso en su funcionalidad?
+
+    Tests automáticos: suite de unitarios para lógica de catálogo; integración con httptest para /qa y /whatsapp usando mock LLM y catálogo de prueba.
+
+    Tests end-to-end en staging: script de curl o Postman que valide flujos completos (Recomendación → Precio → Financiamiento).
+
+    Deploy Canary/Blue-Green para enrutar tráfico gradualmente a la nueva versión y monitorear métricas antes de hacer swap total.
+
+    Control de versiones de prompt: asegurarse de que, al cambiar SYSTEM_INSTRUCCIONS, no se introduzcan ambigüedades; añadir tests que verifiquen presencia de frases clave en el prompt.
 
 
 ## Enlaces Útiles
